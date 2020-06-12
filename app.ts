@@ -6,8 +6,13 @@ const text: string = await input("introdu textul: ");
 if (text.length === 0) {
   console.log("introdu textul");
 } else {
-  const image = await qrcode(text);
-  const imgTag = `<img src="${image}" alt="qrcode" />`;
-  const encoder = new TextEncoder();
-  await Deno.writeFile("./qr.html", encoder.encode(imgTag));
+  try {
+    const image = await qrcode(text);
+    const imgTag = `<img src="${image}" alt="qrcode" />`;
+    const encoder = new TextEncoder();
+    await Deno.writeFile("./qr.html", encoder.encode(imgTag));
+    console.log("fisier generat cu succes");
+  } catch (error) {
+    throw error;
+  }
 }
